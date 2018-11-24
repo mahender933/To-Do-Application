@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}To-Do | Home{% endblock %}
+
+{% block content %}
+
+  {% include 'snippets/messages.html' %}
+
+  {% if all_todos %}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Item</th>
+      <th scope="col">Action</th>
+      <th>Added at</th>
+      <th>Last Updated at</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for todo in all_todos %}
+          {% if todo.completed %}
+              <tr class='table-secondary'>
+                <th scope="row">{{forloop.counter}}</th>
+                <td class="striker"> {{todo.item}} </td>
+                <!-- <td ><i class="fa fa-check"></i></td> -->
+                <td><a href="{% url 'change_status' todo.id %}">Uncross</a></td>
+                <td>{{todo.added_at}}</td>
+                <td>{{todo.updated_at}}</td>
+                <td><a href="{% url 'delete' todo.id  %}">Delete</a></td>
+              </tr>
+          {% else %}
+              <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td> {{todo.item}}</td>
+                <!-- <td><i class="fa fa-times"></i></td> -->
+                <td><a href="{% url 'change_status' todo.id %}">Cross</a></td>
+                <td>{{todo.added_at}}</td>
+                <td>{{todo.updated_at}}</td>
+                <td><a href="{% url 'delete' todo.id  %}">Delete</a></td>
+              </tr>
+          {% endif %}
+      {% endfor %}
+  </tbody>
+  {% else %}
+    <div class="alert alert-info alert-dismissable" role="alert">
+      <button class="close" data-dismiss='alert'><small><sup>x</sup></small></button>
+      <strong>Nothing !</strong> in To-Do List.
+    </div>
+  {% endif %}
+</table>
+
+{% endblock content %}
