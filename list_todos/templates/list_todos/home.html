@@ -4,16 +4,10 @@
 
 {% block content %}
 
-{% if messages %}
-  {% for message in messages %}
-    <div class="alert alert-warning alert-dismissable" role="alert">
-      <button class="close" data-dismiss='alert'><small><sup>x</sup></small></button>
-      {{message}}
-    </div>
-  {% endfor %}
-{% endif %}
+{% include "list_todos/snippets/message_alert.html" %}
 
   {% if all_todos %}
+
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -30,7 +24,13 @@
           {% if todo.completed %}
               <tr class='table-secondary'>
                 <th scope="row">{{forloop.counter}}</th>
-                <td class="striker"> {{todo.item}} </td>
+                <td><a class="striker" href="{% url 'edit' todo.id %}"> {{todo.item|truncatechars:40}} </a>
+
+                  {% if todo.item|length > 40 %}
+                      {% include "list_todos/snippets/modal.html" %}
+                  {% endif %}
+
+                </td>
                 <!-- <td ><i class="fa fa-check"></i></td> -->
                 <td><a href="{% url 'change_status' todo.id %}">Uncross</a></td>
                 <td>{{todo.added_at}}</td>
@@ -40,7 +40,13 @@
           {% else %}
               <tr>
                 <th scope="row">{{forloop.counter}}</th>
-                <td> {{todo.item}}</td>
+                <td><a href="{% url 'edit' todo.id %}"> {{todo.item|truncatechars:40}} </a>
+
+                  {% if todo.item|length > 40 %}
+                    {% include "list_todos/snippets/modal.html" %}
+                  {% endif %}
+
+                </td>
                 <!-- <td><i class="fa fa-times"></i></td> -->
                 <td><a href="{% url 'change_status' todo.id %}">Cross</a></td>
                 <td>{{todo.added_at}}</td>
@@ -57,5 +63,7 @@
     </div>
   {% endif %}
 </table>
+
+{% include "list_todos/snippets/paginator.html" %}
 
 {% endblock content %}

@@ -3,4 +3,27 @@
 {% block title %}To-Do | Edit{% endblock %}
 
 {% block content %}
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-warning alert-dismissable" role="alert">
+      <button class="close" data-dismiss='alert'><small><sup>x</sup></small></button>
+      {{message}}
+    </div>
+  {% endfor %}
+{% endif %}
+
+ <form class="form-control my-4 " method="POST">
+  {% csrf_token %}
+  <input class="form-control form-control-lg my-4" type="search" placeholder="{{todo.item}}"  name="item" value="{{todo.item}}">
+
+<!-- if we will not keep "completed"  field in form it will change to default value of False .
+      Logically if a user is editing a `completed` task i.e 'Cross' task ,then it has to be reset again to `Uncross` i.e set value of `completed` back to False because user is initating a new task by editing a current one but we will keep it as it was set by user ............maybe it would be changed in future
+      !!!!
+-->
+
+  <input type="hidden" name="completed" value="{{todo.completed}}">
+  <button class="btn btn-outline-secondary offset-md-5" type="submit">Edit To Do </button>
+</form>
+
 {% endblock %}
