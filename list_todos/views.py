@@ -76,3 +76,22 @@ def edit_todo(request, todo_id):
     else:
         todo = List.objects.get(pk=todo_id)
         return render(request, 'list_todos/edit.html', {"todo": todo})
+
+
+def filter_todos(request):
+    if request.GET.get('field'):
+        filter_by_field = request.GET.get('field')
+        filter_by_field = "-" + filter_by_field
+        all_todos_list = List.objects.all().order_by(filter_by_field)
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(all_todos_list, 10)
+        try:
+            all_todos = paginator.page(page)
+        except PageNotAnInteger:
+            all_todos = paginator.page(1)
+        except EmptyPage:
+            all_todos = paginator.page(paginator.num_pages)
+        return render(request, 'list_todos/home.html', {"all_todos": all_todos})
+    else:
+        return redirect('home')

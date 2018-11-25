@@ -12,10 +12,30 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col"><a style="color: white;" href="#">Item <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th scope="col"><a style="color: white;" href="#">Action <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th><a style="color: white;" href="#">Added at <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th><a style="color: white;" href="#">Last Updated at <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th scope="col">
+        <a style="color: white;" href="{% url 'filter-todos' %}?&field=item{% if request.GET.page %}&page={{request.GET.page}}{% endif %}">
+          Item
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </a>
+      </th>
+      <th scope="col">
+        <a style="color: white;" href="{% url 'filter-todos' %}?&field=completed{% if request.GET.page %}&page={{request.GET.page}}{% endif %}">
+          Action
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </a>
+      </th>
+      <th>
+        <a style="color: white;" href="{% url 'filter-todos' %}?&field=added_at{% if request.GET.page %}&page={{request.GET.page}}{% endif %}">
+          Added at
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </a>
+      </th>
+      <th>
+        <a style="color: white;" href="{% url 'filter-todos' %}?&field=updated_at{% if request.GET.page %}&page={{request.GET.page}}{% endif %}">
+          Last Updated at
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </a>
+      </th>
       <th scope="col">Delete</th>
     </tr>
   </thead>
