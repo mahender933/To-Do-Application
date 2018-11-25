@@ -12,10 +12,10 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Item</th>
-      <th scope="col">Action</th>
-      <th>Added at</th>
-      <th>Last Updated at</th>
+      <th scope="col"><a style="color: white;" href="#">Item <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th scope="col"><a style="color: white;" href="#">Action <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th><a style="color: white;" href="#">Added at <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th><a style="color: white;" href="#">Last Updated at <i class="fa fa-sort" aria-hidden="true"></i></a></th>
       <th scope="col">Delete</th>
     </tr>
   </thead>
@@ -35,7 +35,12 @@
                 <td><a href="{% url 'change_status' todo.id %}">Uncross</a></td>
                 <td>{{todo.added_at}}</td>
                 <td>{{todo.updated_at}}</td>
-                <td><a class="confirm-delete"  href="{% url 'delete' todo.id  %}"></a></td>
+                <td>
+                  <a class="confirm-delete"  href="{% url 'delete' todo.id  %}">
+                    <!-- comment for making it feature i.e if crossed Delete not allowed :)-->
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </a>
+              </td>
               </tr>
           {% else %}
               <tr>
@@ -51,7 +56,11 @@
                 <td><a href="{% url 'change_status' todo.id %}">Cross</a></td>
                 <td>{{todo.added_at}}</td>
                 <td>{{todo.updated_at}}</td>
-                <td><a class="confirm-delete" href="{% url 'delete' todo.id  %}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                <td>
+                  <a class="confirm-delete" href="{% url 'delete' todo.id  %}">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </a>
+                </td>
               </tr>
           {% endif %}
       {% endfor %}
