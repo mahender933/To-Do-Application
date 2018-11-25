@@ -11,3 +11,6 @@ class List(models.Model):
 
     def __str__(self):
         return str(self.id) + "-" + self.item
+
+    class Meta:
+        ordering = ('-added_at',)

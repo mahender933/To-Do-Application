@@ -14,6 +14,10 @@ def home(request):
             all_todos = List.objects.all()
             messages.success(request, ('Item added to the list !!'))
             return render(request, 'list_todos/home.html', {"all_todos": all_todos})
+        else:
+            all_todos = List.objects.all()
+            messages.success(request, ('Please enter something !!'))
+        return render(request, 'list_todos/home.html', {"all_todos": all_todos})
     else:
         all_todos_list = List.objects.all()
 
